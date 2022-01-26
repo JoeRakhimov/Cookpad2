@@ -11,15 +11,14 @@
         android:theme="@style/Theme.Cookpad2">
 
         <activity-alias
-            android:name="Launcher"
-            android:targetActivity=".Activity"
-            android:exported="true">
-
+            android:name=".Launcher"
+            android:exported="true"
+            android:targetActivity=".Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity-alias>
 
         <activity
