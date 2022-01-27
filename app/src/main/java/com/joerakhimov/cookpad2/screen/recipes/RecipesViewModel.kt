@@ -22,11 +22,10 @@ class RecipesViewModel @Inject constructor(
     val recipes: LiveData<Resource<List<Recipe>>> = _recipes
 
     init {
-        Timber.d("init")
         getRecipes()
     }
 
-    fun getRecipes() {
+    private fun getRecipes() {
         viewModelScope.launch {
             _recipes.value = Resource.loading(data = null)
             try {

@@ -1,6 +1,6 @@
 package com.joerakhimov.cookpad2.data.api
 
-import com.joerakhimov.cookpad2.data.util.Status
+import com.joerakhimov.cookpad2.data.model.util.Status
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
     companion object {

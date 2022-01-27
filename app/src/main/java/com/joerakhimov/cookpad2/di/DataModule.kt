@@ -1,6 +1,8 @@
 package com.joerakhimov.cookpad2.di
 
 import android.content.Context
+import com.joerakhimov.cookpad.util.image.GlideImageUtil
+import com.joerakhimov.cookpad.util.image.ImageUtil
 import com.joerakhimov.cookpad2.BuildConfig
 import com.joerakhimov.cookpad2.data.api.ApiService
 import com.joerakhimov.cookpad2.screen.recipes.RecipesFragment

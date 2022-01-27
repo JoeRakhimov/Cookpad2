@@ -10,6 +10,7 @@ import com.google.android.material.tabs.TabLayout
 import com.joerakhimov.cookpad2.R
 import com.joerakhimov.cookpad2.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {

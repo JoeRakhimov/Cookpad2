@@ -2,10 +2,21 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragment_main">
+    app:startDestination="@id/fragment_recipes">
 
     <fragment
         android:id="@+id/fragment_main"
-        android:name="com.joerakhimov.cookpad2.screen.main.MainFragment" />
+        android:name="com.joerakhimov.cookpad2.screen.main.MainFragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_recipes"
+        android:name="com.joerakhimov.cookpad2.screen.recipes.RecipesFragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_recipe"
+        android:name="com.joerakhimov.cookpad2.screen.recipe.RecipeFragment">
+    </fragment>
 
 </navigation>

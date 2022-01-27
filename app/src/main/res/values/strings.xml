@@ -3,4 +3,11 @@
     <string name="title_activity_test">TestActivity</string>
     <string name="recipes">Recipes</string>
     <string name="collections">Collections</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_recipe">No recipe</string>
+    <string name="one_recipe">1 recipe</string>
+    <string name="recipes_amount">%1$d recipe</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="info">Info</string>
+    <string name="steps">Steps</string>
 </resources>

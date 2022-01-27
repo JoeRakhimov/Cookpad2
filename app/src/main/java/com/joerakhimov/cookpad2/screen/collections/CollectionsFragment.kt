@@ -1,4 +1,4 @@
-package com.joerakhimov.cookpad2.screen.recipes
+package com.joerakhimov.cookpad2.screen.collections
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,27 +7,25 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.joerakhimov.cookpad2.R
-import com.joerakhimov.cookpad2.data.model.recipe.Recipe
+import com.joerakhimov.cookpad2.data.model.collection.CollectionItem
 import com.joerakhimov.cookpad2.data.model.util.Status
-import com.joerakhimov.cookpad2.databinding.FragmentRecipesBinding
+import com.joerakhimov.cookpad2.databinding.FragmentCollectionsBinding
 import com.joerakhimov.cookpad2.extensions.setGone
 import com.joerakhimov.cookpad2.extensions.setVisible
 import dagger.hilt.android.AndroidEntryPoint
 
-const val ARG_COLLECTION = "collection"
-
 @AndroidEntryPoint
-class RecipesFragment : Fragment(R.layout.fragment_recipes) {
+class CollectionsFragment: Fragment(R.layout.fragment_collections) {
 
     companion object {
-        fun newInstance() = RecipesFragment()
+        fun newInstance() = CollectionsFragment()
     }
 
-    private val viewModel: RecipesViewModel by viewModels()
-    private var _binding: FragmentRecipesBinding? = null
+    private val viewModel: CollectionsViewModel by viewModels()
+    private var _binding: FragmentCollectionsBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -35,34 +33,33 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentRecipesBinding.inflate(inflater, container, false)
+        _binding = FragmentCollectionsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.title = getString(R.string.recipes)
         setupObservers()
         initRefreshListener()
     }
 
     private fun setupObservers() {
-        viewModel.recipes.observe(viewLifecycleOwner, Observer {
+        viewModel.collections.observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        binding.swipeRecipes.isRefreshing = false
-                        binding.recyclerRecipes.setVisible()
-                        resource.data?.let { recipes -> showRecipes(recipes) }
+                        binding.swipeCollections.isRefreshing = false
+                        binding.recyclerCollections.setVisible()
+                        resource.data?.let { collections -> showCollections(collections) }
                     }
                     Status.ERROR -> {
-                        binding.swipeRecipes.isRefreshing = false
-                        binding.recyclerRecipes.setGone()
+                        binding.swipeCollections.isRefreshing = false
+                        binding.recyclerCollections.setGone()
                         resource.message?.let { showSnackbar(it) }
                     }
                     Status.LOADING -> {
-                        binding.swipeRecipes.isRefreshing = true
-                        binding.recyclerRecipes.setGone()
+                        binding.swipeCollections.isRefreshing = true
+                        binding.recyclerCollections.setGone()
                     }
                 }
             }
@@ -70,15 +67,15 @@ class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
     }
 
-    private fun showRecipes(recipes: List<Recipe>) {
-        binding.recyclerRecipes.apply {
-            layoutManager = GridLayoutManager(context, 2)
-            adapter = RecipesAdapter(recipes)
+    private fun showCollections(collections: List<CollectionItem>) {
+        binding.recyclerCollections.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = CollectionsAdapter(collections)
         }
     }
 
     private fun initRefreshListener() {
-        binding.swipeRecipes.setOnRefreshListener {
+        binding.swipeCollections.setOnRefreshListener {
             viewModel.onRefresh()
         }
     }

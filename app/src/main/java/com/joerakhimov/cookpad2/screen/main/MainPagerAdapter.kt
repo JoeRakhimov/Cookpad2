@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.joerakhimov.cookpad2.R
+import com.joerakhimov.cookpad2.screen.collections.CollectionsFragment
 import com.joerakhimov.cookpad2.screen.recipes.RecipesFragment
 
 private val TAB_TITLES = arrayOf(
@@ -15,7 +16,11 @@ private val TAB_TITLES = arrayOf(
 class MainPagerAdapter(private val context: Context?, fm: FragmentManager): FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
-        return RecipesFragment.newInstance()
+        return when(position){
+            0 -> RecipesFragment.newInstance()
+            1 -> CollectionsFragment.newInstance()
+            else -> RecipesFragment.newInstance()
+        }
     }
 
     override fun getPageTitle(position: Int): CharSequence? {

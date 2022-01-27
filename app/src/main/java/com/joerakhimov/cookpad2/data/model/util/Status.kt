@@ -1,4 +1,4 @@
-package com.joerakhimov.cookpad2.data.util
+package com.joerakhimov.cookpad2.data.model.util
 
 enum class Status {
     SUCCESS,
