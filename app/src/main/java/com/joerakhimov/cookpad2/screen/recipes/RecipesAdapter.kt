@@ -1,49 +1,37 @@
 package com.joerakhimov.cookpad2.screen.recipes
 
-import androidx.recyclerview.widget.RecyclerView
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.joerakhimov.cookpad2.R
-import com.joerakhimov.cookpad2.databinding.FragmentRecipesBinding
+import com.joerakhimov.cookpad2.data.model.recipe.Recipe
+import com.joerakhimov.cookpad2.databinding.ListitemRecipeBinding
+import javax.inject.Inject
 
-import com.joerakhimov.cookpad2.screen.recipes.placeholder.PlaceholderContent.PlaceholderItem
+class RecipesAdapter @Inject constructor(private val recipes: List<Recipe>) :
+    RecyclerView.Adapter<RecipesAdapter.RecipeHolder>() {
 
-/**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
- * TODO: Replace the implementation with code for your data type.
- */
-class RecipesAdapter(
-    private val values: List<PlaceholderItem>
-) : RecyclerView.Adapter<RecipesAdapter.ViewHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
-        return ViewHolder(
-            FragmentRecipesBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeHolder {
+        val itemBinding =
+            ListitemRecipeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return RecipeHolder(itemBinding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+    override fun onBindViewHolder(holder: RecipeHolder, position: Int) {
+        val recipe: Recipe = recipes[position]
+        holder.bind(recipe, holder.itemView.context)
     }
 
-    override fun getItemCount(): Int = values.size
+    override fun getItemCount(): Int = recipes.size
 
-    inner class ViewHolder(binding: FragmentRecipesBinding) : RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.itemNumber
-        val contentView: TextView = binding.content
-
-        override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
+    class RecipeHolder(private val itemBinding: ListitemRecipeBinding) :
+        RecyclerView.ViewHolder(itemBinding.root) {
+        fun bind(recipe: Recipe, context: Context) {
+            itemBinding.textRecipeTitle.text = recipe.title
+            Glide.with(context).load(recipe.imageUrl).error(R.drawable.placeholder)
+                .into(itemBinding.imageRecipePhoto)
         }
     }
 

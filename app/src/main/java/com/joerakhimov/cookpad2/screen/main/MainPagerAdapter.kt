@@ -15,7 +15,7 @@ private val TAB_TITLES = arrayOf(
 class MainPagerAdapter(private val context: Context?, fm: FragmentManager): FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
-        return RecipesFragment.newInstance(position + 1)
+        return RecipesFragment.newInstance()
     }
 
     override fun getPageTitle(position: Int): CharSequence? {

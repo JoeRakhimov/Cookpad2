@@ -1,59 +1,103 @@
 package com.joerakhimov.cookpad2.screen.recipes
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.joerakhimov.cookpad2.R
-import com.joerakhimov.cookpad2.screen.recipes.placeholder.PlaceholderContent
+import com.joerakhimov.cookpad2.data.model.recipe.Recipe
+import com.joerakhimov.cookpad2.data.util.Status
+import com.joerakhimov.cookpad2.databinding.FragmentMainBinding
+import com.joerakhimov.cookpad2.databinding.FragmentRecipesBinding
+import com.joerakhimov.cookpad2.extensions.setGone
+import com.joerakhimov.cookpad2.extensions.setVisible
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
-class RecipesFragment : Fragment() {
-
-    private var columnCount = 1
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_recipes_list, container, false)
-
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = RecipesAdapter(PlaceholderContent.ITEMS)
-            }
-        }
-        return view
-    }
+@AndroidEntryPoint
+class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 
     companion object {
+        fun newInstance() = RecipesFragment()
+    }
 
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
+    private val viewModel: RecipesViewModel by viewModels()
+    private var _binding: FragmentRecipesBinding? = null
+    private val binding get() = _binding!!
 
-        // TODO: Customize parameter initialization
-        @JvmStatic
-        fun newInstance(columnCount: Int) =
-            RecipesFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentRecipesBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupObservers()
+        initRefreshListener()
+    }
+
+    private fun setupObservers() {
+        viewModel.recipes.observe(viewLifecycleOwner, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        binding.swipeRecipes.isRefreshing = false
+                        binding.recyclerRecipes.setVisible()
+                        resource.data?.let { recipes -> showRecipes(recipes) }
+                    }
+                    Status.ERROR -> {
+                        binding.swipeRecipes.isRefreshing = false
+                        binding.recyclerRecipes.setGone()
+                        resource.message?.let { showSnackbar(it) }
+                    }
+                    Status.LOADING -> {
+                        binding.swipeRecipes.isRefreshing = true
+                        binding.recyclerRecipes.setGone()
+                    }
                 }
             }
+        })
+
     }
+
+    private fun showRecipes(recipes: List<Recipe>) {
+        binding.recyclerRecipes.apply {
+            layoutManager = GridLayoutManager(context, 2)
+            adapter = RecipesAdapter(recipes)
+        }
+    }
+
+    private fun initRefreshListener() {
+        binding.swipeRecipes.setOnRefreshListener {
+            viewModel.onRefresh()
+        }
+    }
+
+    private fun showSnackbar(message: String) {
+        Snackbar
+            .make(
+                requireContext(),
+                binding.root,
+                message,
+                Snackbar.LENGTH_LONG
+            )
+            .show()
+    }
+
 }

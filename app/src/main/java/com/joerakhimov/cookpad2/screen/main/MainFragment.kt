@@ -9,7 +9,9 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.joerakhimov.cookpad2.R
 import com.joerakhimov.cookpad2.databinding.FragmentMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {
 
     private var _binding: FragmentMainBinding? = null
