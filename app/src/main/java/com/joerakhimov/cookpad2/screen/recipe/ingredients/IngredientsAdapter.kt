@@ -1,7 +1,6 @@
 package com.joerakhimov.cookpad2.screen.recipe.ingredients
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.joerakhimov.cookpad2.databinding.ListitemIngredientBinding

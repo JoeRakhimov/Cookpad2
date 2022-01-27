@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.joerakhimov.cookpad.util.image.ImageUtil
 import com.joerakhimov.cookpad2.data.model.recipe.Recipe
-import com.joerakhimov.cookpad2.databinding.FragmentRecipeInfoBinding
+import com.joerakhimov.cookpad2.databinding.FragmentInfoBinding
 import com.joerakhimov.cookpad2.screen.recipe.ARG_RECIPE
 import com.joerakhimov.cookpad2.util.time.DateTimeUtil
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RecipeInfoFragment: Fragment() {
+class InfoFragment: Fragment() {
 
     @Inject
     lateinit var imageUtil: ImageUtil
@@ -23,13 +23,13 @@ class RecipeInfoFragment: Fragment() {
     lateinit var dateTimeUtil: DateTimeUtil
 
     lateinit var recipe: Recipe
-    private var _binding: FragmentRecipeInfoBinding? = null
+    private var _binding: FragmentInfoBinding? = null
     private val binding get() = _binding!!
 
     companion object {
         @JvmStatic
-        fun newInstance(recipe: Recipe): RecipeInfoFragment {
-            return RecipeInfoFragment().apply {
+        fun newInstance(recipe: Recipe): InfoFragment {
+            return InfoFragment().apply {
                 arguments = Bundle().apply {
                     putSerializable(ARG_RECIPE, recipe)
                 }
@@ -47,7 +47,7 @@ class RecipeInfoFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentRecipeInfoBinding.inflate(inflater, container, false)
+        _binding = FragmentInfoBinding.inflate(inflater, container, false)
         return binding.root
     }
 
