@@ -1,4 +1,4 @@
-package com.joerakhimov.cookpad2.screen.recipe
+package com.joerakhimov.cookpad2.screen.recipe.info
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.joerakhimov.cookpad.util.image.ImageUtil
 import com.joerakhimov.cookpad2.data.model.recipe.Recipe
 import com.joerakhimov.cookpad2.databinding.FragmentRecipeInfoBinding
-import com.joerakhimov.cookpad2.util.dimen.DimenUtil
+import com.joerakhimov.cookpad2.screen.recipe.ARG_RECIPE
 import com.joerakhimov.cookpad2.util.time.DateTimeUtil
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
