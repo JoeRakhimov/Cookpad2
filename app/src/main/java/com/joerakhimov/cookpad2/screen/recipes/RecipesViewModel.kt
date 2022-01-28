@@ -5,7 +5,12 @@ import com.joerakhimov.cookpad2.data.model.util.Resource
 import com.joerakhimov.cookpad2.data.model.recipe.Recipe
 import com.joerakhimov.cookpad2.usecase.GetRecipesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -13,21 +18,21 @@ class RecipesViewModel @Inject constructor(
     private val getRecipesUseCase: GetRecipesUseCase
 ) : ViewModel() {
 
-    private val _recipes = MutableLiveData<Resource<List<Recipe>>>()
-    val recipes: LiveData<Resource<List<Recipe>>> = _recipes
+    private val _recipes = MutableStateFlow<Resource<List<Recipe>>>(Resource.loading(data = null))
+    val recipes: StateFlow<Resource<List<Recipe>>> = _recipes
 
     init {
         getRecipes()
     }
 
-    private fun getRecipes() {
+    fun getRecipes() {
         viewModelScope.launch {
-            _recipes.value = Resource.loading(data = null)
+            _recipes.emit(Resource.loading(data = null))
             try {
-                _recipes.value = Resource.success(data = getRecipesUseCase())
+                val recipes = getRecipesUseCase()
+                _recipes.emit(Resource.success(data = recipes))
             } catch (exception: Exception) {
-                _recipes.value =
-                    Resource.error(data = null, message = exception.message ?: "Error Occurred!")
+                _recipes.emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
             }
         }
     }
