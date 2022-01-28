@@ -1,18 +1,15 @@
 package com.joerakhimov.cookpad2.screen.recipe.steps
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.joerakhimov.cookpad.util.image.ImageUtil
 import com.joerakhimov.cookpad2.data.model.recipe.Step
-import com.joerakhimov.cookpad2.databinding.ListitemIngredientBinding
 import com.joerakhimov.cookpad2.databinding.ListitemStepBinding
 import com.joerakhimov.cookpad2.extensions.setGone
 import com.joerakhimov.cookpad2.extensions.setVisible
 import com.joerakhimov.cookpad2.extensions.showOrGone
-import com.joerakhimov.cookpad2.screen.recipe.ingredients.IngredientsAdapter
 import com.joerakhimov.cookpad2.util.dimen.DimenUtil
+import com.joerakhimov.cookpad2.util.image.ImageUtil
 
 class StepsAdapter(private val steps: List<Step>, private val imageUtil: ImageUtil, private val dimenUtil: DimenUtil) :
     RecyclerView.Adapter<StepsAdapter.StepHolder>() {

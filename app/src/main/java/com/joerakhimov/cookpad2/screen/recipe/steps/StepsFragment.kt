@@ -6,17 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.joerakhimov.cookpad.util.image.ImageUtil
 import com.joerakhimov.cookpad2.data.model.recipe.Recipe
-import com.joerakhimov.cookpad2.databinding.FragmentIngredientsBinding
-import com.joerakhimov.cookpad2.databinding.FragmentRecipesBinding
 import com.joerakhimov.cookpad2.databinding.FragmentStepsBinding
 import com.joerakhimov.cookpad2.screen.recipe.ARG_RECIPE
-import com.joerakhimov.cookpad2.screen.recipe.ingredients.IngredientsAdapter
 import com.joerakhimov.cookpad2.util.dimen.DimenUtil
-import com.joerakhimov.cookpad2.util.time.DateTimeUtil
+import com.joerakhimov.cookpad2.util.image.ImageUtil
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint

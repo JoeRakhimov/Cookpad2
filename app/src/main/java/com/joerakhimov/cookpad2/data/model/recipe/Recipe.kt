@@ -1,7 +1,6 @@
 package com.joerakhimov.cookpad2.data.model.recipe
 
 import com.google.gson.annotations.SerializedName
-import com.joerakhimov.cookpad2.data.model.recipe.User
 import java.io.Serializable
 
 data class Recipe(

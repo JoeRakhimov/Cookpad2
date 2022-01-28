@@ -1,4 +1,4 @@
-package com.joerakhimov.cookpad.util.image
+package com.joerakhimov.cookpad2.util.image
 
 import android.widget.ImageView
 

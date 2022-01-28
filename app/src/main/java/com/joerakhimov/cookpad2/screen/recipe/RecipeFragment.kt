@@ -8,14 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.joerakhimov.cookpad2.data.model.recipe.Recipe
-import com.joerakhimov.cookpad2.databinding.FragmentMainBinding
 import com.joerakhimov.cookpad2.databinding.FragmentRecipeBinding
-import com.joerakhimov.cookpad2.databinding.FragmentRecipesBinding
-import com.joerakhimov.cookpad2.screen.main.MainPagerAdapter
-import timber.log.Timber
+import dagger.hilt.android.AndroidEntryPoint
 
 const val ARG_RECIPE = "recipe"
 
+@AndroidEntryPoint
 class RecipeFragment: Fragment() {
 
     private var _binding: FragmentRecipeBinding? = null

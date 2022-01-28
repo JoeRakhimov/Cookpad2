@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.joerakhimov.cookpad.util.image.ImageUtil
+import com.joerakhimov.cookpad2.util.image.ImageUtil
 import com.joerakhimov.cookpad2.data.model.recipe.Recipe
 import com.joerakhimov.cookpad2.databinding.FragmentInfoBinding
 import com.joerakhimov.cookpad2.screen.recipe.ARG_RECIPE
@@ -53,17 +53,20 @@ class InfoFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        showInfo()
+    }
 
+    private fun showInfo() {
         imageUtil.loadImage(binding.imageRecipePhoto, recipe.imageUrl)
         binding.textRecipeTitle.text = recipe.title
 
         imageUtil.loadImage(binding.imageUserPhoto, recipe.user.imageUrl)
         binding.textRecipeUser.text = recipe.user.name
-        val humanReadableDate = dateTimeUtil.fromBackendDatetimeToHumanReadableDate(recipe.publishedAt)
+        val humanReadableDate =
+            dateTimeUtil.fromBackendDatetimeToHumanReadableDate(recipe.publishedAt)
         binding.textRecipePublishedTime.text = humanReadableDate
 
         binding.textRecipeStory.text = recipe.story
-
     }
 
 }

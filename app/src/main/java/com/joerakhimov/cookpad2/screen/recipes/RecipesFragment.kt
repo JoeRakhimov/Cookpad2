@@ -17,8 +17,6 @@ import com.joerakhimov.cookpad2.extensions.setGone
 import com.joerakhimov.cookpad2.extensions.setVisible
 import dagger.hilt.android.AndroidEntryPoint
 
-const val ARG_COLLECTION = "collection"
-
 @AndroidEntryPoint
 class RecipesFragment : Fragment(R.layout.fragment_recipes) {
 

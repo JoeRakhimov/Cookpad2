@@ -1,8 +1,8 @@
 package com.joerakhimov.cookpad2.di
 
 import android.content.Context
-import com.joerakhimov.cookpad.util.image.GlideImageUtil
-import com.joerakhimov.cookpad.util.image.ImageUtil
+import com.joerakhimov.cookpad2.util.image.GlideImageUtil
+import com.joerakhimov.cookpad2.util.image.ImageUtil
 import com.joerakhimov.cookpad2.util.dimen.DimenUtil
 import com.joerakhimov.cookpad2.util.time.DateTimeUtil
 import dagger.Module
