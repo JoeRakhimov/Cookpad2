@@ -8,3 +8,4 @@ Task was completed according to the given requirements:
 - UI state is persisted accross configuration changes with Android View Model
 - UI state is updated in reactive way with LiveData
 - I/O operations are handled with Coroutines
+- Unit tests
