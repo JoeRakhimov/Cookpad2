@@ -10,10 +10,4 @@ interface ApiService {
     @GET("recipes")
     suspend fun getRecipes(): List<Recipe>
 
-    @GET("collections")
-    suspend fun getCollections(): List<CollectionItem>
-
-    @GET("collections/{collection_id}/recipes")
-    suspend fun getRecipesByCollectionId(@Path("collection_id") collectionId: Int): List<Recipe>
-
 }
