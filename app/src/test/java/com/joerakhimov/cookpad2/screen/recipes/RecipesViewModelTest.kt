@@ -1,9 +1,7 @@
 package com.joerakhimov.cookpad2.screen.recipes
 
-import androidx.lifecycle.Observer
 import app.cash.turbine.test
 import com.joerakhimov.cookpad2.data.model.recipe.Recipe
-import com.joerakhimov.cookpad2.data.model.util.Resource
 import com.joerakhimov.cookpad2.data.model.util.Status
 import com.joerakhimov.cookpad2.usecase.GetRecipesUseCase
 import junit.framework.Assert.assertEquals
@@ -16,7 +14,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.*
-import org.mockito.kotlin.whenever
 import kotlin.time.ExperimentalTime
 
 @ExperimentalCoroutinesApi
